@@ -22,12 +22,7 @@
 # Eracydes Carvalho (Sansão Simonton) - NOC Analyst - sansaoipb@gmail.com
 # Thiago Paz - NOC Analyst - thiagopaz1986@gmail.com
 
-import json
-import os
-import re
-import requests
-import sys
-import time
+import json, os, re, sys, time, requests
 
 import ConfigParser
 
@@ -180,56 +175,56 @@ class Log:
             logger.error(str(entry))
 
 log = Log
-	
+
 try:
-	login_api = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-type': 'application/json'},\
-		data = json.dumps(
-			{
-				"jsonrpc": "2.0",
-				"method": "user.login",
-				"params": {
-					"user": zbx_user,
-					"password": zbx_pass
-				},
-				"id": 1
-			}
-		)
-	)
+    login_api = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-type': 'application/json'},\
+        data = json.dumps(
+            {
+                "jsonrpc": "2.0",
+                "method": "user.login",
+                "params": {
+                    "user": zbx_user,
+                    "password": zbx_pass
+                },
+                "id": 1
+            }
+        )
+    )
 
-	login_api = json.loads(login_api.text.encode('utf-8'))
+    login_api = json.loads(login_api.text.encode('utf-8'))
 
-	if 'result' in login_api:
-		auth = login_api["result"]
-	elif 'error' in login_api:
-		print('Zabbix: %s' % login_api["error"]["data"])
-		log.writelog('Zabbix: {0}'.format(login_api["error"]["data"]), arqLog, "ERROR")
-		exit()
-	else:
-		print(login_api)
-		log.writelog('{0}'.format(login_api), arqLog, "WARNING")
-		exit()
+    if 'result' in login_api:
+        auth = login_api["result"]
+    elif 'error' in login_api:
+        print('Zabbix: %s' % login_api["error"]["data"])
+        log.writelog('Zabbix: {0}'.format(login_api["error"]["data"]), arqLog, "ERROR")
+        exit()
+    else:
+        print(login_api)
+        log.writelog('{0}'.format(login_api), arqLog, "WARNING")
+        exit()
 
 except ValueError as e:
-	print('Check declared zabbix URL/IP and try again | Valide a URL/IP do Zabbix declarada e tente novamente\nCurrent: %s' % zbx_server)
-	log.writelog('Check declared zabbix URL/IP and try again | Valide a URL/IP do Zabbix declarada e tente novamente. (Current: {0})'.format(zbx_server), arqLog, "WARNING")
-	exit()
+    print('Check declared zabbix URL/IP and try again | Valide a URL/IP do Zabbix declarada e tente novamente\nCurrent: %s' % zbx_server)
+    log.writelog('Check declared zabbix URL/IP and try again | Valide a URL/IP do Zabbix declarada e tente novamente. (Current: {0})'.format(zbx_server), arqLog, "WARNING")
+    exit()
 except Exception as e:
-	print(e)
-	log.writelog('{0}'.format(str(e)), arqLog, "WARNING")
-	exit()
-		
+    print(e)
+    log.writelog('{0}'.format(str(e)), arqLog, "WARNING")
+    exit()
+
 def logout_api():
-	requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-type': 'application/json'},\
-		data = json.dumps(
-			{
-				"jsonrpc": "2.0", 
-				"method": "user.logout",
-				"params": [],
-				"auth": auth,
-				"id": 4
-			}
-		)
-	)
+    requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-type': 'application/json'},\
+        data = json.dumps(
+            {
+                "jsonrpc": "2.0",
+                "method": "user.logout",
+                "params": [],
+                "auth": auth,
+                "id": 4
+            }
+        )
+    )
 
 itemid = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-type': 'application/json'},\
     data = json.dumps(
@@ -238,7 +233,7 @@ itemid = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-ty
             "method": "host.get",
             "params": {
                 "output": ["hostid"],
-		"selectItems": ["itemid"],
+        "selectItems": ["itemid"],
             },
             "auth": auth,
             "id": 3
@@ -248,17 +243,17 @@ itemid = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-ty
 itemid = json.loads(itemid.text.encode('utf-8'))['result'][0]['items'][0]['itemid']
 
 itemtype_api = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-type': 'application/json'},\
-	data = json.dumps(
-		{
-			"jsonrpc": "2.0",
-			"method": "item.get",
-			"params": {
-				"output": ["value_type"], "itemids": itemid
-			},
-			"auth": auth,
-			"id": 2
-		}
-	)
+    data = json.dumps(
+        {
+            "jsonrpc": "2.0",
+            "method": "item.get",
+            "params": {
+                "output": ["value_type"], "itemids": itemid, "webitems": itemid
+            },
+            "auth": auth,
+            "id": 2
+        }
+    )
 )
 
 itemtype_api = json.loads(itemtype_api.text.encode('utf-8'))
@@ -271,71 +266,71 @@ except Exception:
     log.writelog('Invalid ItemID or user has no read permission on item/host | ItemID inválido ou usuário sem permissão de leitura no item/host', arqLog, "WARNING")
     logout_api()
     exit()
-	
+
 try:
-	if telegram_path.endswith('/'):
-		telegram_path = telegram_path[:-1]
-	
-	os.chdir(telegram_path)
+    if telegram_path.endswith('/'):
+        telegram_path = telegram_path[:-1]
+
+    os.chdir(telegram_path)
 except BaseException as e:
-	print(e)
-	log.writelog('{0}'.format(str(e)), arqLog, "WARNING")
+    print(e)
+    log.writelog('{0}'.format(str(e)), arqLog, "WARNING")
 
 if __name__ == '__main__':
-	if item_type == '0' or item_type == '3':
-		try:
-			loginpage = requests.get('%s/index.php' % zbx_server).text
-			enter = re.search('<button.*value=".*>(.*?)</button>', loginpage)
-			enter = str(enter.group(1))
+    if item_type == '0' or item_type == '3':
+        try:
+            loginpage = requests.get('%s/index.php' % zbx_server).text
+            enter = re.search('<button.*value=".*>(.*?)</button>', loginpage)
+            enter = str(enter.group(1))
 
-			s = requests.session()
-			s.post('%s/index.php?login=1' % zbx_server,  params = {'name': zbx_user, 'password': zbx_pass, 'enter': enter}).text
+            s = requests.session()
+            s.post('%s/index.php?login=1' % zbx_server,  params = {'name': zbx_user, 'password': zbx_pass, 'enter': enter}).text
 
-			stime = time.strftime("%Y%m%d%H%M%S", time.localtime(time.time() - stime))
+            stime = time.strftime("%Y%m%d%H%M%S", time.localtime(time.time() - stime))
 
-			get_graph = s.get('%s/chart3.php?name=%s&period=%s&width=%s&height=%s&stime=%s&items[0][itemid]=%s&items[0][drawtype]=5&items[0][color]=%s' % (zbx_server, itemname, period, width, height, stime, itemid, color))
-		except BaseException as e:
-			print('Can\'t connect to %(ip)s/index.php | Não foi possível conectar-se à %(ip)s/index.php' % {'ip': zbx_server})
-			log.writelog('Can\'t connect to %(ip)s/index.php | Não foi possível conectar-se à {0}/index.php'.format(zbx_server), arqLog, "WARNING")
-			logout_api()
-			exit()
+            get_graph = s.get('%s/chart3.php?name=%s&period=%s&width=%s&height=%s&stime=%s&items[0][itemid]=%s&items[0][drawtype]=5&items[0][color]=%s' % (zbx_server, itemname, period, width, height, stime, itemid, color))
+        except BaseException as e:
+            print('Can\'t connect to %(ip)s/index.php | Não foi possível conectar-se à %(ip)s/index.php' % {'ip': zbx_server})
+            log.writelog('Can\'t connect to %(ip)s/index.php | Não foi possível conectar-se à {0}/index.php'.format(zbx_server), arqLog, "WARNING")
+            logout_api()
+            exit()
 
-		try:
-			graph = '{0}/{1}.png'.format(graph_path, itemid)
-			with open(graph, 'wb') as png:
-				png.write(get_graph.content)
-		except BaseException as e:
-			print('An error occurred at save graph file in %(path)s | Ocorreu um erro ao salvar o grafico no diretório %(path)s\n' % {'path': graph_path})
-			print(e)
-			log.writelog('{1} >> An error occurred at save graph file in {0} | Ocorreu um erro ao salvar o grafico no diretório {0}'.format(graph_path, str(e)), arqLog, "WARNING")
-			logout_api()
-			exit()
-		send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'send_photo {0} {1} "{2} {0} \\n\\n{3} {4}"'""".format(sys.argv[1], graph, salutation, subject, body)).read()
+        try:
+            graph = '{0}/{1}.png'.format(graph_path, itemid)
+            with open(graph, 'wb') as png:
+                png.write(get_graph.content)
+        except BaseException as e:
+            print('An error occurred at save graph file in %(path)s | Ocorreu um erro ao salvar o grafico no diretório %(path)s\n' % {'path': graph_path})
+            print(e)
+            log.writelog('{1} >> An error occurred at save graph file in {0} | Ocorreu um erro ao salvar o grafico no diretório {0}'.format(graph_path, str(e)), arqLog, "WARNING")
+            logout_api()
+            exit()
+        send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'send_photo {0} {1} "{2} {0} \\n\\n{3} {4}"'""".format(sys.argv[1], graph, salutation, subject, body)).read()
 
-		if not 'fail' in send_msg.lower():
-			logout_api()
-			print('Message sent successfully | Mensagem enviada com sucesso ({0})'.format(sys.argv[1]))
-			log.writelog('Message sent successfully | Mensagem enviada com sucesso ({0})'.format(sys.argv[1]), arqLog, "INFO")
-		else:
-			error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
-			print('Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram\n%s' % error_msg)
-			log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
-			logout_api()
+        if not 'fail' in send_msg.lower():
+            logout_api()
+            print('Message sent successfully | Mensagem enviada com sucesso ({0})'.format(sys.argv[1]))
+            log.writelog('Message sent successfully | Mensagem enviada com sucesso ({0})'.format(sys.argv[1]), arqLog, "INFO")
+        else:
+            error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
+            print('Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram\n%s' % error_msg)
+            log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
+            logout_api()
 
-		try:
-			os.remove(graph)
-		except Exception as e:
-			print(e)
-			log.writelog('{0}'.format(str(e)), arqLog, "ERROR")
-	else:
-		send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'msg {0} "{1} {0} \\n\\n{2} {3}"'""".format(sys.argv[1], salutation, subject, body)).read()
+        try:
+            os.remove(graph)
+        except Exception as e:
+            print(e)
+            log.writelog('{0}'.format(str(e)), arqLog, "ERROR")
+    else:
+        send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'msg {0} "{1} {0} \\n\\n{2} {3}"'""".format(sys.argv[1], salutation, subject, body)).read()
 
-		if not 'fail' in send_msg.lower():
-			logout_api()
-			print('Message sent successfully | Mensagem enviada com sucesso')
-			log.writelog('Message sent successfully | Mensagem enviada com sucesso', arqLog, "INFO")
-		else:
-			error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
-			print('Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram\n%s' % error_msg)
-			log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
-			logout_api()
+        if not 'fail' in send_msg.lower():
+            logout_api()
+            print('Message sent successfully | Mensagem enviada com sucesso')
+            log.writelog('Message sent successfully | Mensagem enviada com sucesso', arqLog, "INFO")
+        else:
+            error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
+            print('Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram\n%s' % error_msg)
+            log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
+            logout_api()

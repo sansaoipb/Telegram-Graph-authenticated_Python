@@ -22,12 +22,7 @@
 # Eracydes Carvalho (Sansão Simonton) - NOC Analyst - sansaoipb@gmail.com
 # Thiago Paz - NOC Analyst - thiagopaz1986@gmail.com
 
-import json
-import os
-import re
-import requests
-import sys
-import time
+import json, os, re, sys, time, requests
 
 import ConfigParser
 
