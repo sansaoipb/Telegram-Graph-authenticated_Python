@@ -312,7 +312,7 @@ if __name__ == '__main__':
     except BaseException as e:
         log.writelog('{0}'.format(str(e)), arqLog, "WARNING")
 
-    if item_type == '0' or item_type == '3':
+    if re.search("(0|3)", item_type):
         try:
             loginpage = requests.get('%s/index.php' % zbx_server).text
             enter = re.search('<button.*value=".*>(.*?)</button>', loginpage)
