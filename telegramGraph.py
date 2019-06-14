@@ -335,19 +335,19 @@ if __name__ == '__main__':
 
                 if periodD > 0:
                     period = "from=now-{0}d-{1}h-{2}m&to=now".format(periodD, periodH, periodM)
-                    itemname = "{0}%20({1}d {2}h:{3}m)".format(itemname, periodD, periodH, periodM)
+                    itemname = "{0} ({1}d {2}h:{3}m)".format(itemname, periodD, periodH, periodM)
 
                 elif periodD == 0 and periodH == 0:
                     period = "from=now-{0}m&to=now".format(periodM)
-                    itemname = "{0}%20({1}m)".format(itemname, periodM)
+                    itemname = "{0} ({1}m)".format(itemname, periodM)
 
                 elif periodD == 0 and period % 60 == 0:
                     period = "from=now-{0}h&to=now".format(periodH)
-                    itemname = "{0}%20({1}h)".format(itemname, periodH)
+                    itemname = "{0} ({1}h)".format(itemname, periodH)
 
                 else:
                     period = "from=now-{0}h-{1}m&to=now".format(periodH, periodM)
-                    itemname = "{0}%20({1}h:{2}m)".format(itemname, periodH, periodM)
+                    itemname = "{0} ({1}h:{2}m)".format(itemname, periodH, periodM)
 
             get_graph = s.get(
                 '{0}/chart3.php?name={1}&{2}&width={3}&height={4}&stime={5}&items[0][itemid]={6}&items[0][drawtype]=5&items[0][color]={7}'.format(
