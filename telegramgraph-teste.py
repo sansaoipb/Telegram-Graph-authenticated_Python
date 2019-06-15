@@ -51,7 +51,7 @@ itemname = 'ITEM'
 color    = '00C800'
 period   = 3600
 subject = itemname+ " Teste,"
-body     = 'testando de envio'
+body     = 'testando o envio'
 
 # Zabbix settings | Dados do Zabbix #############################################################################################################
 zbx_server = PropertiesReaderX(path.format('configScrips.properties')).getValue('PathSection', 'url')
@@ -230,17 +230,18 @@ itemid = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-ty
     data = json.dumps(
         {
             "jsonrpc": "2.0",
-            "method": "host.get",
+            "method": "item.get",
             "params": {
-                "output": ["hostid"],
-        "selectItems": ["itemid"],
+                "output": ["itemid"],
+                "hostid": "",
+                "search": {"key_": "agent.ping"}
             },
             "auth": auth,
             "id": 3
         }
     )
 )
-itemid = json.loads(itemid.text.encode('utf-8'))['result'][0]['items'][0]['itemid']
+itemid = json.loads(itemid.text.encode('utf-8'))['result'][9]['itemid']
 
 itemtype_api = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-type': 'application/json'},\
     data = json.dumps(
@@ -307,16 +308,6 @@ if __name__ == '__main__':
             exit()
         send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'send_photo {0} {1} "{2} {0} \\n\\n{3} {4}"'""".format(sys.argv[1], graph, salutation, subject, body)).read()
 
-        if not 'fail' in send_msg.lower():
-            logout_api()
-            print('Message sent successfully | Mensagem enviada com sucesso ({0})'.format(sys.argv[1]))
-            log.writelog('Message sent successfully | Mensagem enviada com sucesso ({0})'.format(sys.argv[1]), arqLog, "INFO")
-        else:
-            error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
-            print('Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram\n%s' % error_msg)
-            log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
-            logout_api()
-
         try:
             os.remove(graph)
         except Exception as e:
@@ -325,12 +316,12 @@ if __name__ == '__main__':
     else:
         send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'msg {0} "{1} {0} \\n\\n{2} {3}"'""".format(sys.argv[1], salutation, subject, body)).read()
 
-        if not 'fail' in send_msg.lower():
-            logout_api()
-            print('Message sent successfully | Mensagem enviada com sucesso')
-            log.writelog('Message sent successfully | Mensagem enviada com sucesso', arqLog, "INFO")
-        else:
-            error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
-            print('Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram\n%s' % error_msg)
-            log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
-            logout_api()
+    if not 'fail' in send_msg.lower():
+        logout_api()
+        print('Message sent successfully | Mensagem enviada com sucesso')
+        log.writelog('Message sent successfully | Mensagem enviada com sucesso', arqLog, "INFO")
+    else:
+        error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
+        print('Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram\n%s' % error_msg)
+        log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
+        logout_api()

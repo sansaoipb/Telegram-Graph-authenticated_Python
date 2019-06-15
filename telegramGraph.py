@@ -59,6 +59,7 @@ width      = PropertiesReaderX(path.format('configScrips.properties')).getValue(
 stime      = int(PropertiesReaderX(path.format('configScrips.properties')).getValue('PathSection', 'stime'))    # Graph start time [3600 = 1 hour ago]  |  Hora inicial do grafico [3600 = 1 hora atras]
 
 # Ack message | Ack da Mensagem #################################################################################################################
+Ack = PropertiesReaderX(path.format('configScrips.properties')).getValue('PathSection', 'Ack')
 ack_message = 'Telegram enviado com sucesso para {0}'
 
 # Salutation | Saudação #########################################################################################################################
@@ -371,15 +372,6 @@ if __name__ == '__main__':
 
         send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'send_photo {0} {1} "{2} {0} \\n\\n{3} {4}"'""".format(sys.argv[1], graph, salutation, sys.argv[2], body)).read()
 
-        if not 'fail' in send_msg.lower():
-            ack()
-            logout_api()
-            log.writelog('Message sent successfully | Mensagem enviada com sucesso ({0})'.format(sys.argv[1]), arqLog, "INFO")
-        else:
-            error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
-            log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
-            logout_api()
-
         try:
             os.remove(graph)
         except Exception as e:
@@ -387,12 +379,14 @@ if __name__ == '__main__':
     else:
         send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'msg {0} "{1} {0} \\n\\n{2} {3}"'""".format(sys.argv[1], salutation, sys.argv[2], body)).read()
 
-        if not 'fail' in send_msg.lower():
+
+    if not 'fail' in send_msg.lower():
+        if re.search("(sim|s|yes|y)", str(Ack).lower()):
             ack()
-            logout_api()
-            log.writelog('Message sent successfully | Mensagem enviada com sucesso ({0})'.format(sys.argv[1]), arqLog, "INFO")
-        else:
-            error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
-            log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
-            logout_api()
+        logout_api()
+        log.writelog('Message sent successfully | Mensagem enviada com sucesso ({0})'.format(sys.argv[1]), arqLog, "INFO")
+    else:
+        error_msg = "".join(re.findall(r'FAIL: (.*?)\n', send_msg, re.I|re.DOTALL))
+        log.writelog('{0} >> Telegram FAIL at sending photo message | FALHA ao enviar a mensagem com gráfico pelo telegram ({1})'.format(error_msg, sys.argv[1]), arqLog, "ERROR")
+        logout_api()
 
