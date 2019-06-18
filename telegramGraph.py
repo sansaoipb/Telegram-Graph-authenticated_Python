@@ -59,24 +59,27 @@ width      = PropertiesReaderX(path.format('configScrips.properties')).getValue(
 stime      = int(PropertiesReaderX(path.format('configScrips.properties')).getValue('PathSection', 'stime'))    # Graph start time [3600 = 1 hour ago]  |  Hora inicial do grafico [3600 = 1 hora atras]
 
 # Ack message | Ack da Mensagem #################################################################################################################
-Ack = PropertiesReaderX(path.format('configScrips.properties')).getValue('PathSection', 'Ack')
+Ack = PropertiesReaderX(path.format('configScrips.properties')).getValue('PathSection', 'ack')
 ack_message = 'Telegram enviado com sucesso para {0}'
 
 # Salutation | Saudação #########################################################################################################################
-good_morning   = 'Bom dia'
-good_afternoon = 'Boa Tarde'
-good_evening   = 'Boa Noite'
+Salutation = PropertiesReaderX(path.format('configScrips.properties')).getValue('PathSection', 'salutation')
+if re.search("(sim|s|yes|y)", str(Salutation).lower()):
+    good_morning   = 'Bom dia'
+    good_afternoon = 'Boa Tarde'
+    good_evening   = 'Boa Noite'
 
-hora = int(time.strftime("%H"))
+    hora = int(time.strftime("%H"))
 
-if hora < 12:
-    salutation = good_morning
-elif hora >= 18:
-    salutation = good_evening
+    if hora < 12:
+        salutation = good_morning + " {0} \\n\\n"
+    elif hora >= 18:
+        salutation = good_evening + " {0} \\n\\n"
+    else:
+        salutation = good_afternoon + " {0} \\n\\n"
 else:
-    salutation = good_afternoon
+    salutation = ""
 
-#'''
 # Diretórios
 # Telegram-cli path | Diretório do Telegram-cli
 projeto = PropertiesReaderX(path.format('configScrips.properties')).getValue('PathSectionTelegram', 'name')
@@ -86,7 +89,6 @@ telegram_path = "{0}".format(path.format(projeto))
 logName = '{0}Graph.log'.format(projeto)
 pathLogs = path.format("log")
 arqLog = "{0}".format(os.path.join(pathLogs, logName))
-#'''
 
 if not os.path.exists(pathLogs):
     os.makedirs(pathLogs)
@@ -370,14 +372,14 @@ if __name__ == '__main__':
             logout_api()
             exit()
 
-        send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'send_photo {0} {1} "{2} {0} \\n\\n{3} {4}"'""".format(sys.argv[1], graph, salutation, sys.argv[2], body)).read()
+        send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'send_photo {0} {1} "{2}{3} {4}"'""".format(sys.argv[1], graph, salutation.format(sys.argv[1]), sys.argv[2], body)).read()
 
         try:
             os.remove(graph)
         except Exception as e:
             log.writelog('{0}'.format(str(e)), arqLog, "ERROR")
     else:
-        send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'msg {0} "{1} {0} \\n\\n{2} {3}"'""".format(sys.argv[1], salutation, sys.argv[2], body)).read()
+        send_msg = os.popen("""./telegram-cli -k tg-server.pub -c telegram.config -WR -U zabbix -e 'msg {0} "{1}{2} {3}"'""".format(sys.argv[1], salutation.format(sys.argv[1]), sys.argv[2], body)).read()
 
 
     if not 'fail' in send_msg.lower():
