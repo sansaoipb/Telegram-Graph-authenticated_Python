@@ -176,7 +176,7 @@ class Log:
 log = Log
 
 try:
-    itemname, eventid, itemid, color, period, body = sys.argv[3].split('#',6)
+    itemname, eventid, itemid, color, period, body = sys.argv[3].split('#', 5)
     body = body.replace("\\n", "").replace("\r", "").split('\n ')[0].replace("\n", "\\n")
     period = int(period)
 except ValueError as e:
