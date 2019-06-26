@@ -242,7 +242,7 @@ itemid = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-ty
         }
     )
 )
-itemid = json.loads(itemid.text.encode('utf-8'))['result'][9]['itemid']
+itemid = json.loads(itemid.text.encode('utf-8'))['result'][0]['itemid']
 
 itemtype_api = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-type': 'application/json'},\
     data = json.dumps(
