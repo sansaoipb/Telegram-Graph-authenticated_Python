@@ -235,7 +235,7 @@ itemid = requests.post('%s/api_jsonrpc.php' % zbx_server, headers = {'Content-ty
             "params": {
                 "output": ["itemid"],
                 "hostid": "",
-                "search": {"key_": "agent.ping"}
+                "search": {"key_": "icmpping"}
             },
             "auth": auth,
             "id": 3
