@@ -38,7 +38,7 @@ Em caso de dúvida, sugestão ou dificuldade junte-se a nós no <b>Grupo do Tele
 
 Envio de alarmes no ZABBIX pelo Telegram com usuário autenticado com gráficos.<br>
 
-O "How to" foi testado no ZABBIX 2.4 ao 4.2 no Debian 8-9/Ubuntu 14-18 e CentOS 6.x e 7, caso não utilize estas distros procure os pacotes descritos para sua necessidade.
+O "How to" foi testado no ZABBIX 2.4 ao 4.4 no Debian 8 ao 10/Ubuntu 14 ao 19 e CentOS 6.x, ao 8, caso não utilize estas distros procure os pacotes descritos para sua necessidade.
 
 <!--
 # Acompanhe no Vídeo:
@@ -73,8 +73,41 @@ Para iniciarmos a configuração de envio, é preciso logar pela primeira vez ma
 
 <b>Está mapeado alguns possiveis erros, e para corrigi-los siga os passos:</b>
 
+
+<b>Para o CentOS 8:</b>
+<i>(homologado pelo amigo "Junior" <a href="https://t.me/amarodefarias" class="wikilink2" title="Conversar com ele" rel="nofollow">@amarodefarias</a>)</i>
+
+<pre>
+yum install -y readline-devel compat-openssl10
+sudo ln -s /usr/lib64/libreadline.so.7 /usr/lib64/libreadline.so.6
+sudo ln -s /usr/lib64/liblua-5.3.so /usr/lib64/liblua-5.1.so
+sudo ln -s /usr/lib64/libssl.so.1.1.1 /usr/lib64/libssl.so.10
+</pre>
+
+<b>Para o Ubuntu 19:</b>
+<i>(homologado pelo amigo "George Luiz" <a href="https://t.me/George_HPD" class="wikilink2" title="Conversar com ele" rel="nofollow">@George_HPD</a>)</i>
+
+<pre>
+sudo wget launchpadlibrarian.net/429633018/libmysqlclient20_5.7.26-1_amd64.deb
+sudo dpkg -i libmysqlclient20_5.7.26-1_amd64.deb
+
+sudo wget http://archive.ubuntu.com/ubuntu/pool/main/libe/libevent/libevent-2.0-5_2.0.21-stable-2ubuntu0.16.04.1_amd64.deb
+sudo dpkg -i libevent-2.0-5_2.0.21-stable-2ubuntu0.16.04.1_amd64.deb
+</pre>
+
+
+<b>Para o Debian 10:</b>
+<i>(homologado pelo amigo "Bernardo Lankheet" <a href="https://t.me/bernardolankheet" class="wikilink2" title="Conversar com ele" rel="nofollow">@bernardolankheet</a>)</i>
+
+<pre>
+sudo ln -s /usr/lib/x86_64-linux-gnu/libevent_pthreads-2.1.so.6 /usr/lib/x86_64-linux-gnu/libevent_pthreads-2.0.so.5
+sudo ln -s /usr/lib/x86_64-linux-gnu/libevent-2.1.so.6 /usr/lib/x86_64-linux-gnu/libevent-2.0.so.5
+sudo ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+</pre>
+
+
 <blockquote> <p>Debian 9/Ubuntu 16</p> </blockquote>
-<i>(Os dois primeiros homologados pelo amigo "Paulo Aguiar" <a href="https://t.me/aguiarpaulo" class="wikilink2" title="Conversar com ele" rel="nofollow">@aguiarpaulo)</a></i>
+<i>(Os dois primeiros homologados pelo amigo "Paulo Aguiar" <a href="https://t.me/aguiarpaulo" class="wikilink2" title="Conversar com ele" rel="nofollow">@aguiarpaulo</a>)</i>
 <br>
 
 
@@ -107,7 +140,6 @@ sudo ln -s /usr/lib/x86_64-linux-gnu/libpython3.5m.so.1.0 /usr/lib/x86_64-linux-
 <br>
 <pre><b>Execute este comando:</b>
 sudo ln -s /lib/x86_64-linux-gnu/libreadline.so.5 /lib/x86_64-linux-gnu/libreadline.so.6</pre>
-
 
 
 Será redirecionado para o console da ferramenta, indicado por um “>”, aguarde até que o texto <code>phone number</code> apareça, depois digite o número de telefone que está cadastrado no telegram, no formato +552244448888 (prefixo para o Brasil, DDD e número), depois que der “Enter” e receberá um código por SMS e no aplicativo <i>(no desktop, no celular ou na versão web, basta estar logado)</i>.
