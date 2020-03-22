@@ -74,7 +74,7 @@ Para iniciarmos a configuração de envio, é preciso logar pela primeira vez ma
 <b>Está mapeado alguns possiveis erros, e para corrigi-los siga os passos:</b>
 
 
-<b>Para o CentOS 8:</b>
+<blockquote> <p>Para o CentOS 8</p> </blockquote>
 <i>(homologado pelo amigo "Junior" <a href="https://t.me/amarodefarias" class="wikilink2" title="Conversar com ele" rel="nofollow">@amarodefarias</a>)</i>
 
 <pre>
@@ -84,7 +84,7 @@ sudo ln -s /usr/lib64/liblua-5.3.so /usr/lib64/liblua-5.1.so
 sudo ln -s /usr/lib64/libssl.so.1.1.1 /usr/lib64/libssl.so.10
 </pre>
 
-<b>Para o Ubuntu 19:</b>
+<blockquote> <p>Para o Ubuntu 19:</p> </blockquote>
 <i>(homologado pelo amigo "George Luiz" <a href="https://t.me/George_HPD" class="wikilink2" title="Conversar com ele" rel="nofollow">@George_HPD</a>)</i>
 
 <pre>
@@ -96,7 +96,7 @@ sudo dpkg -i libevent-2.0-5_2.0.21-stable-2ubuntu0.16.04.1_amd64.deb
 </pre>
 
 
-<b>Para o Debian 10:</b>
+<blockquote> <p>Para o Debian 10:</p> </blockquote>
 <i>(homologado pelo amigo "Bernardo Lankheet" <a href="https://t.me/bernardolankheet" class="wikilink2" title="Conversar com ele" rel="nofollow">@bernardolankheet</a>)</i>
 
 <pre>
