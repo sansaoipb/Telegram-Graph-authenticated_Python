@@ -71,9 +71,9 @@ Para iniciarmos a configuração de envio, é preciso logar pela primeira vez ma
 <pre>./telegram-cli --rsa-key tg-server.pub --config telegram.config</pre>
 
 
-<b>Está mapeado alguns possiveis erros, e para corrigi-los siga os passos:</b>
+<b>Após a execução, está mapeado alguns possiveis erros, e para corrigi-los siga os passos:</b>
 
-
+<br>
 <blockquote> <p>Para o CentOS 8</p> </blockquote>
 <i>(homologado pelo amigo "Junior" <a href="https://t.me/amarodefarias" class="wikilink2" title="Conversar com ele" rel="nofollow">@amarodefarias</a>)</i>
 
@@ -84,6 +84,7 @@ sudo ln -s /usr/lib64/liblua-5.3.so /usr/lib64/liblua-5.1.so
 sudo ln -s /usr/lib64/libssl.so.1.1.1 /usr/lib64/libssl.so.10
 </pre>
 
+<br>
 <blockquote> <p>Para o Ubuntu 19:</p> </blockquote>
 <i>(homologado pelo amigo "George Luiz" <a href="https://t.me/George_HPD" class="wikilink2" title="Conversar com ele" rel="nofollow">@George_HPD</a>)</i>
 
@@ -95,7 +96,7 @@ sudo wget http://archive.ubuntu.com/ubuntu/pool/main/libe/libevent/libevent-2.0-
 sudo dpkg -i libevent-2.0-5_2.0.21-stable-2ubuntu0.16.04.1_amd64.deb
 </pre>
 
-
+<br>
 <blockquote> <p>Para o Debian 10:</p> </blockquote>
 <i>(homologado pelo amigo "Bernardo Lankheet" <a href="https://t.me/bernardolankheet" class="wikilink2" title="Conversar com ele" rel="nofollow">@bernardolankheet</a>)</i>
 
@@ -105,7 +106,7 @@ sudo ln -s /usr/lib/x86_64-linux-gnu/libevent-2.1.so.6 /usr/lib/x86_64-linux-gnu
 sudo ln -s /lib/x86_64-linux-gnu/libcrypto.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1.0.0
 </pre>
 
-
+<br>
 <blockquote> <p>Debian 9/Ubuntu 16</p> </blockquote>
 <i>(Os dois primeiros homologados pelo amigo "Paulo Aguiar" <a href="https://t.me/aguiarpaulo" class="wikilink2" title="Conversar com ele" rel="nofollow">@aguiarpaulo</a>)</i>
 <br>
@@ -141,7 +142,7 @@ sudo ln -s /usr/lib/x86_64-linux-gnu/libpython3.5m.so.1.0 /usr/lib/x86_64-linux-
 <pre><b>Execute este comando:</b>
 sudo ln -s /lib/x86_64-linux-gnu/libreadline.so.5 /lib/x86_64-linux-gnu/libreadline.so.6</pre>
 
-
+<br><br>
 Será redirecionado para o console da ferramenta, indicado por um “>”, aguarde até que o texto <code>phone number</code> apareça, depois digite o número de telefone que está cadastrado no telegram, no formato +552244448888 (prefixo para o Brasil, DDD e número), depois que der “Enter” e receberá um código por SMS e no aplicativo <i>(no desktop, no celular ou na versão web, basta estar logado)</i>.
 O comando <code>help</code> lista todos os comandos disponíveis, os comandos <code>contact_list</code> e <code>dialog_list</code> carregam sua lista de contatos e as conversas atuais, todos os comandos tem autocomplete usando o TAB.
 
