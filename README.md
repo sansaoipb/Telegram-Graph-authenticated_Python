@@ -232,7 +232,7 @@ Com o script adicionado no local indicado acima, precisamos realizar algumas con
 
 <blockquote> <p>Zabbix 2.4</p> </blockquote>
 <img src="https://lh3.googleusercontent.com/FYnv-B4eOnSWPC3GkQLsqak610MnYqXDUBlZQE1qmSHkCXvTfddyNwPcMtnkaFBhU3zSstclZSj8b4WNag=w425-h107-rw"/><br><br>
-<blockquote> <p>Zabbix 3.0 à 4.2</p> </blockquote>
+<blockquote> <p>Zabbix 3.0 à 4.4</p> </blockquote>
 <img src="https://lh3.googleusercontent.com/E1rSALiZb0E3UC9iHvqVqMrcB5EaRnBnHAYJdfjYEjV4qqkHhnkaWa7q3BsNPkhF7QoqXlk84rtIYY2wUw=w399-h220-rw"/><br><br>
 
 <b>OBS:</b><br>
