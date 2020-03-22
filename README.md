@@ -85,7 +85,7 @@ sudo ln -s /usr/lib64/libssl.so.1.1.1 /usr/lib64/libssl.so.10
 </pre>
 
 <br>
-<blockquote> <p>Para o Ubuntu 19:</p> </blockquote>
+<blockquote> <p>Para o Ubuntu 19</p> </blockquote>
 <i>(homologado pelo amigo "George Luiz" <a href="https://t.me/George_HPD" class="wikilink2" title="Conversar com ele" rel="nofollow">@George_HPD</a>)</i>
 
 <pre>
@@ -97,7 +97,7 @@ sudo dpkg -i libevent-2.0-5_2.0.21-stable-2ubuntu0.16.04.1_amd64.deb
 </pre>
 
 <br>
-<blockquote> <p>Para o Debian 10:</p> </blockquote>
+<blockquote> <p>Para o Debian 10</p> </blockquote>
 <i>(homologado pelo amigo "Bernardo Lankheet" <a href="https://t.me/bernardolankheet" class="wikilink2" title="Conversar com ele" rel="nofollow">@bernardolankheet</a>)</i>
 
 <pre>
