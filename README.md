@@ -49,22 +49,22 @@ O "How to" foi testado no ZABBIX 2.4 ao 4.4 no Debian 8 ao 10, Ubuntu 14 ao 19 e
 <ul>
 	<li>
 		<strong>
-			<a href="#requisitos">Requisitos</a>
+			<a href=#requisitos>Requisitos</a>
 		</strong>
 	</li>
 	<li>
 		<strong>
-			<a href=“#edite-os-parâmetros”>Parametros do script</a>
+			<a href=#edite-os-parâmetros>Parametros do script</a>
 		</strong>
 	</li>
 	<li>
 		<strong>
-			<a href=“#configurando-o-envio”>Configuração do front</a>
+			<a href=#configurando-o-envio>Configuração do front</a>
 		</strong>
 	</li>
 	<li>
 		<strong>
-			<a href=“#conclusão”>Conclusão</a>
+			<a href=#conclusão>Conclusão</a>
 		</strong>
 	</li>
 
