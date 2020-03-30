@@ -45,6 +45,33 @@ O "How to" foi testado no ZABBIX 2.4 ao 4.4 no Debian 8 ao 10, Ubuntu 14 ao 19 e
 [![](https://img.youtube.com/vi/EBTh5cU_ZXM/0.jpg)](https://youtu.be/EBTh5cU_ZXM "Integração ZABBIX x Telegram com gráfico")
 -->
 
+# Sumário
+<ul>
+	<li>
+		<strong>
+			<a href="#requisitos">Requisitos</a>
+		</strong>
+	</li>
+	<li>
+		<strong>
+			<a href=“#edite-os-parâmetros”>Parametros do script</a>
+		</strong>
+	</li>
+	<li>
+		<strong>
+			<a href=“#configurando-o-envio”>Configuração do front</a>
+		</strong>
+	</li>
+	<li>
+		<strong>
+			<a href=“#conclusão”>Conclusão</a>
+		</strong>
+	</li>
+
+</ul>
+
+<br>
+
 # Requisitos:
 
 <b>0 – </b> Estar logado com o user zabbix
