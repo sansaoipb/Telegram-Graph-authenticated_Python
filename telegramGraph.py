@@ -205,7 +205,6 @@ else:
 
 
 body = re.sub(r'(\d{4})\.(\d{2})\.(\d{2})', r'\3/\2/\1', body)
-body = body.replace("\\n", "").replace("\r", "").split('\n ')[0].replace("\n", "\\n").replace("\"", "")
 
 def destinatarios(dest):
     destinatario = ["{0}".format(hostsW).replace(" ", "") for hostsW in dest.split(",")]
