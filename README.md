@@ -72,17 +72,18 @@ O "How to" foi testado no ZABBIX 2.4 ao 4.4 no Debian 8 ao 10, Ubuntu 14 ao 19 e
 <br>
 
 # Requisitos:
-
+<!--
 <b>0 – </b> Estar logado com o user zabbix
 <br>
 <blockquote>Caso necessário, habilite como o comando abaixo e troque a senha:</blockquote>
 <pre>sudo usermod -s /bin/bash zabbix ; sudo passwd zabbix</pre>
+-->
 
 <blockquote> <p>Instale os pacotes </p> </blockquote>
 <blockquote> <p> Debian/Ubuntu</p> </blockquote>
-<pre>$ sudo apt-get install -y wget dos2unix unzip git python-requests<br></pre>
-<blockquote> <p>CentOS 6.x e 7</p> </blockquote>
-<pre>sudo yum install -y epel-release ; sudo yum upgrade -y ; sudo yum install -y wget dos2unix unzip git python-requests</pre>
+<pre>$ sudo apt-get install -y wget dos2unix unzip git<br></pre>
+<blockquote> <p>CentOS 6.x, 7 e 8</p> </blockquote>
+<pre>sudo yum install -y epel-release ; sudo yum upgrade -y ; sudo yum install -y wget dos2unix unzip git</pre>
 
 <blockquote> <p>Faça o download do script de instalação</p> </blockquote>
 <pre>cd /tmp ; wget https://raw.githubusercontent.com/sansaoipb/scripts/master/telegram.sh -O telegram.sh ; dos2unix telegram.sh ; sh telegram.sh</pre>
@@ -94,7 +95,7 @@ Ao final da execução do script, ele indicará qual pasta você acessará.
 
 Para iniciarmos a configuração de envio, é preciso logar pela primeira vez manualmente, então entre no diretório <code>“que o script indicou”</code> e execute o <code>telegram-cli</code> com o comando abaixo.
 
-<pre>./telegram-cli --rsa-key tg-server.pub --config telegram.config</pre>
+<pre>sudo -u zabbix ./telegram-cli --rsa-key tg-server.pub --config telegram.config</pre>
 
 
 <b>Após a execução, está mapeado alguns possiveis erros, e para corrigi-los siga os passos:</b>
