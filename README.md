@@ -81,9 +81,9 @@ O "How to" foi testado no ZABBIX 2.4 ao 5.0 no Debian 8-10/Ubuntu 14-20 e CentOS
 
 <blockquote> <p>Instale os pacotes </p> </blockquote>
 <blockquote> <p> Debian/Ubuntu</p> </blockquote>
-<pre>$ sudo apt-get install -y wget dos2unix unzip git<br></pre>
+<pre>$ sudo apt-get install -y wget dos2unix<br></pre>
 <blockquote> <p>CentOS 6.x, 7 e 8</p> </blockquote>
-<pre>sudo yum install -y epel-release ; sudo yum upgrade -y ; sudo yum install -y wget dos2unix unzip git</pre>
+<pre>sudo yum install -y epel-release ; sudo yum upgrade ; sudo yum install -y wget dos2unix</pre>
 
 <blockquote> <p>Faça o download do script de instalação</p> </blockquote>
 <pre>cd /tmp ; wget https://raw.githubusercontent.com/sansaoipb/scripts/master/telegram.sh -O telegram.sh ; dos2unix telegram.sh ; sh telegram.sh</pre>
