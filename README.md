@@ -215,11 +215,11 @@ Entre no arquivo <code>configScrips.properties</code> e edite os campos abaixo:
 Script para realização do teste:<br>
 <b>Script, user#ID, Nome ou user.</b><br>
 Exs:<br>
-<pre>./telegramgraph-teste.py user#123456789</pre>
+<pre>sudo -u zabbix ./telegramgraph-teste.py user#123456789</pre>
 ou
-<pre>./telegramgraph-teste.py Nome_Sobrenome</pre>
+<pre>sudo -u zabbix ./telegramgraph-teste.py Nome_Sobrenome</pre>
 ou
-<pre>./telegramgraph-teste.py @usuario</pre>
+<pre>sudo -u zabbix ./telegramgraph-teste.py @usuario</pre>
 
 <b>OBS:</b><br>
 <b>1 – </b>"user#123456789", "Nome_Sobrenome" ou @usuario são informações fictícias para exemplificar, busque um UserID ou nome de usuário válido em seu ambiente com os comandos já passados para realização do teste;<br>
