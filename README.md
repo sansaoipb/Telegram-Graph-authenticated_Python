@@ -109,6 +109,7 @@ yum install -y readline-devel compat-openssl10
 sudo ln -s /usr/lib64/libreadline.so.7 /usr/lib64/libreadline.so.6
 sudo ln -s /usr/lib64/liblua-5.3.so /usr/lib64/liblua-5.1.so
 sudo ln -s /usr/lib64/libssl.so.1.1.1 /usr/lib64/libssl.so.10
+sudo ln -s /usr/lib64/libevent-2.1.so.6 /usr/lib64/libevent-2.0.so.5
 </pre>
 
 <br>
